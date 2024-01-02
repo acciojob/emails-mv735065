@@ -39,7 +39,41 @@ public class Workspace extends Gmail{
 //                (Meeting a,Meeting b){
 //            return a.startTime.comapreTo(b.startTime);
 //        });
- return 2;
+
+        Collections.sort(calendar, new Comparator<Meeting>() {
+            @Override
+            public int compare(Meeting o1, Meeting o2) {
+                 if(o1.getStartTime().compareTo(o2.getStartTime())==0){
+                     return o1.getEndTime().compareTo(o2.getEndTime());
+                 }
+
+return o1.getStartTime().compareTo(o2.getStartTime());
+
+            }
+        });
+//     for(int i=0;i<calendar.size();i++)
+//        System.out.println(calendar.get(i).toString());
+
+      LocalTime start=calendar.get(0).getStartTime();
+      LocalTime end=calendar.get(0).getEndTime();
+
+       int i=1;int c=1;
+       while(i<calendar.size()){
+           if(end.compareTo(calendar.get(i).getStartTime())<0){
+               c++;
+               end=calendar.get(i).getEndTime();
+           }
+          else if(end.compareTo(calendar.get(i).getEndTime())>0){
+              end=calendar.get(i).getEndTime();
+           }
+          i++;
+       }
+
+
+
+
+
+ return c;
 
     }
 }
